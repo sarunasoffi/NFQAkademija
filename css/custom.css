@@ -1,0 +1,26 @@
+/* Cia custom css failas */
+body {
+	padding-top: 40px;
+}
+.navbar {
+background-color:#A13535;
+background-image: none;
+}
+.navbar .nav > li > a {
+    color:  #1a0000;
+}
+@media (min-width: 768px) {
+    .navbar .navbar-nav {
+        display: inline-block;
+        float: none;
+        vertical-align: top;
+    }
+
+    .navbar .navbar-collapse {
+        text-align: center;
+    }
+}
+.well {
+	background: #A13535;
+	color: black;
+}
