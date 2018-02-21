@@ -37,10 +37,64 @@
 
 	<?php
 	include_once 'dbconfig.php';
-    echo '<div class="container" id="system-form">
+	echo '<div class="container" id="search-form">
+    	<form for="" class="form-group" method="post" id="search_form">
+    	<input type="text" value="" class="form-control" id="search_name" name="search_name" placeholder="Įveskite užsakovo vardą"></input>
+    	<button class="btn btn-danger" type="submit" name="search_submit">Atrinkti</button>
+    	</form>
+    	</div>';
+		if(isset($_POST['search_submit'])){
+			$order_name = $_POST['search_name'];
+            echo '<div class="container" id="system-form">
               <section>
                 <div class="page-header">
-                  <h2>Užsakymų sąrašas &nbsp;&nbsp;<small> Čia galite peržiūrėti atliktus užsakymus</small></h2>
+                  <h2><small>Atlikti užsakymai pagal vardo: "' .$order_name. '" paiešką</small></h2>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <table class="table table-bordered">
+                      <thead>
+                        <th>Užsakymo Nr.</th>
+                        <th>Paslauga</th>
+                        <th>Vardas</th>
+                        <th>Vieta</th>
+                        <th>Mob. tel. nr.</th>
+                        <th>Užsakymo laikas</th> 
+                      </thead>';
+                      ?>
+                      <?php
+                      $paimimas = $db_con->prepare("SELECT * FROM order_list WHERE first_name LIKE '%$order_name%' ORDER BY id");
+                      $paimimas->execute();
+                      $rezultatas = $paimimas->fetchAll();
+                      foreach ($rezultatas as $rows) {
+                        ?>
+                      <tbody>
+                        <td><?=$rows['id'];?></td>
+                        <td><?=$rows['order_name'];?></td>
+                        <td><?=$rows['first_name'];?></td>
+                        <td><?=$rows['place'];?></td>
+                        <td><?=$rows['phone_number'];?></td>
+                        <td><?=$rows['date_time'];?></td>
+                      <?php
+                      }
+                      ?>
+                      </tbody>
+                      
+                    </table>
+                  </div>
+                </div>
+              </section>
+            </div>
+            <?php };
+            ?>
+
+            
+
+            <?php
+    		echo '<div class="container" id="system-form">
+              <section>
+                <div class="page-header">
+                  <h2>Pilnas užsakymų sąrašas &nbsp;&nbsp;<small> Čia galite peržiūrėti atliktus užsakymus</small></h2>
                 </div>
                 <div class="row">
                   <div class="col-sm-12">
